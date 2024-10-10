@@ -1,0 +1,26 @@
+steps:
+  # Step 1: Validate SQL Scripts
+  - name: 'google/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        for file in sql/*.sql; do
+          bq query --use_legacy_sql=false < "$file"
+        done
+
+  # Step 2: Execute SQL Scripts
+  - name: 'google/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        for file in sql/*.sql; do
+          echo "Executing $file"
+          bq query --use_legacy_sql=false < "$file"
+        done
+
+timeout: '1200s'  # Timeout after 20 minutes
+
+options:
+  logging: CLOUD_LOGGING_ONLY  # Specify logging option
