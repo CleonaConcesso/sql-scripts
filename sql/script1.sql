@@ -5,4 +5,7 @@ SELECT
 UNION ALL
 SELECT
     "oranges" AS fruit,
-    5 AS count;
+    5 AS count
+SELECT
+    "bananas" AS fruit,
+    3 AS count;
